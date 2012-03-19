@@ -1,0 +1,1 @@
+create table users (id bigint not null auto_increment, facebookId bigint not null unique, registrationDate date, primary key (id)) ENGINE=InnoDB;

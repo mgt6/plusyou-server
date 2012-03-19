@@ -1,0 +1,1 @@
+alter table awards add column facebookMessageResourceId varchar(255) not null unique;

@@ -1,0 +1,2 @@
+create table user_invites (id bigint not null auto_increment, friendId bigint not null, opportunityId bigint not null, user_id bigint not null, primary key (id), unique (user_id, opportunityId, friendId)) ENGINE=InnoDB;
+alter table user_invites add index FKCFC34A16B91C6EC3 (user_id), add constraint FKCFC34A16B91C6EC3 foreign key (user_id) references users (id);

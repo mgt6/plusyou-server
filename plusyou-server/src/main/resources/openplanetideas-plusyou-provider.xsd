@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="urn:com:openplanetideas:plusyou:provider" xmlns:tns="urn:com:openplanetideas:plusyou:provider" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="interest" type="tns:interest"/>
+
+    <xs:element name="opportunity" type="tns:opportunity"/>
+
+    <xs:element name="vendor" type="tns:vendor"/>
+
+    <xs:complexType name="opportunity">
+        <xs:complexContent>
+            <xs:extension base="tns:abstractEntity">
+                <xs:sequence>
+                    <xs:element name="externalId" type="xs:long"/>
+                    <xs:element name="title" type="xs:string"/>
+                    <xs:element name="description" type="xs:string"/>
+                    <xs:element name="interests">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element ref="tns:interest" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="date" type="xs:dateTime"/>
+                    <xs:element name="beginTime" type="xs:dateTime"/>
+                    <xs:element name="endTime" type="xs:dateTime"/>
+                    <xs:element ref="tns:vendor"/>
+                    <xs:element name="created" type="xs:dateTime"/>
+                    <xs:element name="updated" type="xs:dateTime"/>
+                    <xs:element name="geoLocation" type="tns:geoLocation"/>
+                    <xs:element name="address" type="tns:address"/>
+                    <xs:element name="organization" type="tns:organization" minOccurs="0"/>
+                    <xs:element name="distance" type="xs:double"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="abstractEntity" abstract="true">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="interest">
+        <xs:complexContent>
+            <xs:extension base="tns:abstractEntity">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="interestCategory" type="tns:interestCategory"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="vendor">
+        <xs:complexContent>
+            <xs:extension base="tns:abstractEntity">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="geoLocation">
+        <xs:sequence>
+            <xs:element name="longitude" type="xs:double"/>
+            <xs:element name="latitude" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="address">
+        <xs:sequence>
+            <xs:element name="country" type="tns:country"/>
+            <xs:element name="city" type="xs:string" minOccurs="0"/>
+            <xs:element name="postcode" type="xs:string"/>
+            <xs:element name="street" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="country">
+        <xs:complexContent>
+            <xs:extension base="tns:abstractEntity">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="organization">
+        <xs:complexContent>
+            <xs:extension base="tns:abstractEntity">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="address" type="tns:address"/>
+                    <xs:element name="telephone" type="xs:string" minOccurs="0"/>
+                    <xs:element name="email" type="xs:string" minOccurs="0"/>
+                    <xs:element name="website" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="interestCategory">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SPORT"/>
+            <xs:enumeration value="ART"/>
+            <xs:enumeration value="POLITICS"/>
+            <xs:enumeration value="DISABILITY"/>
+            <xs:enumeration value="ELDERLY"/>
+            <xs:enumeration value="MUSIC"/>
+            <xs:enumeration value="EDUCATION"/>
+            <xs:enumeration value="COMMUNITY_SERVICES"/>
+            <xs:enumeration value="ENVIRONMENT"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,1 @@
+alter table user_opportunities add column registrationStatus varchar(50) not null;

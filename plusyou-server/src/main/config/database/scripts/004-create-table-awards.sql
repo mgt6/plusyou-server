@@ -1,0 +1,1 @@
+create table awards (id bigint not null auto_increment, category varchar(255) not null, descriptionResourceId varchar(255) not null unique, awardGroup varchar(255) not null, imageResourceId varchar(255) not null unique, level varchar(255) not null, messageResourceId varchar(255) not null unique, name varchar(255) not null unique, primary key (id)) ENGINE=InnoDB;

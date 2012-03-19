@@ -1,0 +1,8 @@
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+
+    <persistence-unit name="plusyou-server-database">
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+        </properties>
+    </persistence-unit>
+</persistence>
