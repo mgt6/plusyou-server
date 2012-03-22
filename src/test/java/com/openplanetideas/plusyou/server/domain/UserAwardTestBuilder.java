@@ -40,6 +40,7 @@ public class UserAwardTestBuilder implements Builder<UserAward> {
     private User user = aUser().build();
     private Award award = anAward().build();
     private int timesWon = 1;
+    private boolean awarded = false;
 
     private UserAwardTestBuilder() {
     }
@@ -52,6 +53,7 @@ public class UserAwardTestBuilder implements Builder<UserAward> {
     public UserAward build() {
         UserAward userAward = new UserAward(user, award);
         ReflectionTestUtils.setField(userAward, "timesWon", timesWon);
+        ReflectionTestUtils.setField(userAward, "awarded", awarded);
         return userAward;
     }
 

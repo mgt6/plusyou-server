@@ -33,6 +33,7 @@ import com.google.common.collect.Lists;
 import com.openplanetideas.plusyou.server.controller.common.AbstractController;
 import com.openplanetideas.plusyou.server.domain.FacebookStream;
 import com.openplanetideas.plusyou.server.domain.User;
+import com.openplanetideas.plusyou.server.domain.UserAward;
 import com.openplanetideas.plusyou.server.domain.UserInvite;
 import com.openplanetideas.plusyou.server.domain.UserOpportunity;
 import com.openplanetideas.plusyou.server.exception.PlusYouServerException;
@@ -59,7 +60,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     @Transactional
     public void deleteAllUserData(final String facebookId) {
-        User user = userRepository.findByFacebookId(facebookId);
+        User user = getUserByFacebookId(facebookId);
 
         if (user != null) {
             List<FacebookStream> facebookStreams = facebookPostRepository.findByUserIn(Lists.newArrayList(user), null);
@@ -81,7 +82,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     @Transactional
     public void saveUserInvites(final String facebookId, final Long opportunityId, final List<String> friendIds) {
-        User user = userRepository.findByFacebookId(facebookId);
+        User user = getUserByFacebookId(facebookId);
+
         if (user == null) {
             String msg = String.format("%s: %s", AbstractController.FACEBOOK_USER_ID_NOT_FOUND_IN_USER_TABLE, facebookId);
             LOG.warn(msg);
@@ -96,6 +98,18 @@ public class UserServiceImpl extends AbstractService implements UserService {
             }
 
             userInviteRepository.save(userInvites);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void flagAwardsAwarded(String facebookId) {
+        User user = getUserByFacebookId(facebookId);
+
+        final List<UserAward> awards = user.getUserAwards();
+
+        for (UserAward award : awards) {
+            award.setAwarded(true);
         }
     }
 

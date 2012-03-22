@@ -74,6 +74,7 @@ public class AwardController extends AbstractController {
     @RequestMapping(value = GET_ALL_AWARDS, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<UserAwardList> getAllAwardsOfUser(@PathVariable final String facebookId) {
         final List<UserAward> allAwardsOfUser = awardService.getAllAwardsOfUser(facebookId);
+        userService.flagAwardsAwarded(facebookId);
         if (!isEmpty(allAwardsOfUser)) {
             return new ResponseEntity<UserAwardList>(new UserAwardList(allAwardsOfUser), HttpStatus.OK);
         } else {

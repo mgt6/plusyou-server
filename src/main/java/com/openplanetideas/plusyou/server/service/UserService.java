@@ -38,4 +38,5 @@ public interface UserService {
     void createNewUser(final String facebookId, final String password) throws PlusYouServerException;
     void deleteAllUserData(final String facebookId);
     void saveUserInvites(final String facebookId, final Long opportunityId, final List<String> friendIds);
+    void flagAwardsAwarded(String facebookId);
 }

@@ -69,7 +69,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     @Override
     @Transactional
     public List<Award> assignBuddyAwards(final String facebookId, final Long opportunityId, final String jsonFriendList) {
-        User user = userRepository.findByFacebookId(facebookId);
+        User user = getUserByFacebookId(facebookId);
         List<User> fbFriends = jsonService.extractUsersFromJson(jsonFriendList);
 
         final String buddyUpAwardName = "Buddy Up";
@@ -102,7 +102,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     @Override
     @Transactional
     public Award assignCheckInAward(final String facebookId) {
-        User user = getUser(facebookId);
+        User user = getUserByFacebookId(facebookId);
         List<UserOpportunity> userOpportunities = userOpportunityRepository.findByUserAndCheckInDateNotNull(user);
 
         int checkedInOpportunityCount = 0;
@@ -127,7 +127,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     @Override
     @Transactional
     public Award assignEarlyBirdAward(final String facebookId) {
-        User user = getUser(facebookId);
+        User user = getUserByFacebookId(facebookId);
         return assignAwardToUser(user, "Early Bird"); //TODO unhardcode (name as enum)
     }
 
@@ -159,7 +159,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
 
         Map<User, Award> friendAwards = new HashMap<User, Award>();
         for (String friendId : friendIds) {
-            User friend = getUser(friendId);
+            User friend = getUserByFacebookId(friendId);
             if (friend != null) {
                 UserOpportunity friendOpportunity = userOpportunityRepository.findByUserAndOpportunityId(friend, opportunityId);
                 if (friendOpportunity != null) {
@@ -175,7 +175,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     @Override
     @Transactional
     public Award assignGoodIntentionsAward(final String facebookId) {
-        User user = getUser(facebookId);
+        User user = getUserByFacebookId(facebookId);
         List<UserOpportunity> userOpportunities = userOpportunityRepository.findByUser(user);
         if (userOpportunities.size() == 1) {
             return assignAwardToUser(user, "Good Intentions"); //TODO remove hardcoded name (enum name?)
@@ -186,7 +186,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     @Override
     @Transactional
     public List<Award> assignInviteFriendAwards(final String facebookId, final Long opportunityId) {
-        User user = getUser(facebookId);
+        User user = getUserByFacebookId(facebookId);
         Award awardToWin = awardRepository.findByCategoryAndLevelAndGroup(Award.AwardCategory.SHARE, Award.AwardLevel.LOW, Award.AwardGroup.INVITE);
 
         List<Award> awardsWon = new ArrayList<Award>();
@@ -213,13 +213,13 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     @Override
     @Transactional
     public Award assignPictureAward(final String facebookId) {
-        return assignSuperSnapperAward(getUser(facebookId));
+        return assignSuperSnapperAward(getUserByFacebookId(facebookId));
     }
 
     @Override
     @Transactional
     public Award assignSocialNetworkAward(final String facebookId) {
-        User user = getUser(facebookId);
+        User user = getUserByFacebookId(facebookId);
         Award award = assignAwardToUser(user, "Spread the Word", true);
 
         final List<Award> awardList = extractAwardList(user.getUserAwards());
@@ -238,7 +238,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     @Transactional
     //TODO Refactor
     public Award assignTotallyCommittedAward(final String facebookId) {
-        User user = getUser(facebookId);
+        User user = getUserByFacebookId(facebookId);
         List<UserOpportunity> userOpportunities = userOpportunityRepository.findByUser(user);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(user.getRegistrationDate());
@@ -254,7 +254,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
 
     @Override
     public List<UserAward> getAllAwardsOfUser(final String facebookId) {
-        List<UserAward> userAwards = getUser(facebookId).getUserAwards();
+        List<UserAward> userAwards = getUserByFacebookId(facebookId).getUserAwards();
         List<UserAward> allAwards = setIconsToDefault(awardRepository.findAll());
         userAwards = keepAwardsOfLevel(userAwards, Award.AwardLevel.HIGH);
         allAwards = keepAwardsOfLevel(allAwards, Award.AwardLevel.LOW);
@@ -303,7 +303,7 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
     }
 
     private List<Award> assignVolunteeringAwards(String facebookId, Award.AwardCategory category, Award.AwardLevel level, List<Award.AwardGroup> groups, int highAwardCondition) {
-        User user = getUser(facebookId);
+        User user = getUserByFacebookId(facebookId);
         List<Award> awardsToWin = awardRepository.findByCategoryAndLevelAndGroupIn(category, level, groups);
         return determineAwardsWon(user, awardsToWin, highAwardCondition);
     }
@@ -348,9 +348,6 @@ public class AwardServiceImpl extends AbstractService implements AwardService {
         return awards;
     }
 
-    private User getUser(String facebookId) {
-        return userRepository.findByFacebookId(facebookId);
-    }
 
     private List<UserAward> keepAwardsOfLevel(List<UserAward> userAwards, final Award.AwardLevel level) {
         Map<Award.AwardGroup, List<UserAward>> awardGroupListMap = mapAwardsWithAwardGroup(userAwards);

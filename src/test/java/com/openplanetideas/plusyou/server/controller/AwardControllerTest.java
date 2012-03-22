@@ -36,6 +36,7 @@ import com.openplanetideas.plusyou.server.domain.UserAwardTestBuilder;
 import com.openplanetideas.plusyou.server.domain.response.AwardList;
 import com.openplanetideas.plusyou.server.domain.response.UserAwardList;
 import com.openplanetideas.plusyou.server.service.AwardService;
+import com.openplanetideas.plusyou.server.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -62,6 +63,9 @@ public class AwardControllerTest {
 
     @Mock
     private AwardService awardService;
+
+    @Mock
+    private UserService userService;
 
     @InjectMocks
     private AwardController awardController;

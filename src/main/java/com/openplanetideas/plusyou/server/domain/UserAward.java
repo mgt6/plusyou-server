@@ -60,7 +60,6 @@ import java.util.Date;
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
 public class UserAward implements Serializable {
-
     private static final long serialVersionUID = 7494508587959256301L;
 
     @EmbeddedId
@@ -69,19 +68,21 @@ public class UserAward implements Serializable {
     private Date assignedDate;
     @Column(nullable = false)
     private Integer timesWon = 0;
+    @Column
+    private Boolean awarded = Boolean.FALSE;
 
     protected UserAward() {
-    }
-
-    public UserAward(User user, Award award, Date assignedDate) {
-        this(user, award);
-        this.assignedDate = assignedDate;
     }
 
     public UserAward(User user, Award award) {
         pk.setUser(user);
         pk.setAward(award);
         timesWon = 1;
+    }
+
+    public UserAward(User user, Award award, Date assignedDate) {
+        this(user, award);
+        this.assignedDate = assignedDate;
     }
 
     @Override
@@ -129,7 +130,6 @@ public class UserAward implements Serializable {
         this.timesWon++;
     }
 
-
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(DateTimeXmlAdapter.class)
     @XmlSchemaType(name = "dateTime")
@@ -150,5 +150,18 @@ public class UserAward implements Serializable {
     @Transient
     public User getUser() {
         return pk.getUser();
+    }
+
+    @XmlElement(required = true)
+    public Boolean isAwarded() {
+        return awarded;
+    }
+
+    public void setAwarded(Boolean awarded) {
+        if (awarded == null) {
+            awarded = Boolean.FALSE;
+        } else {
+            this.awarded = awarded;
+        }
     }
 }

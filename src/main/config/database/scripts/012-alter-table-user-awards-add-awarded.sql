@@ -1,0 +1,1 @@
+alter table user_awards add awarded boolean;

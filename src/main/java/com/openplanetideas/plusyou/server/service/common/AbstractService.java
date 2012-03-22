@@ -29,6 +29,7 @@
 
 package com.openplanetideas.plusyou.server.service.common;
 
+import com.openplanetideas.plusyou.server.domain.User;
 import com.openplanetideas.plusyou.server.repository.AwardRepository;
 import com.openplanetideas.plusyou.server.repository.FacebookPostRepository;
 import com.openplanetideas.plusyou.server.repository.UserAwardRepository;
@@ -40,7 +41,7 @@ import com.openplanetideas.plusyou.server.webservice.ProviderRestHandler;
 
 import javax.inject.Inject;
 
-public class AbstractService {
+public abstract class AbstractService {
 
     @Inject
     protected UserRepository userRepository;
@@ -65,4 +66,10 @@ public class AbstractService {
 
     @Inject
     protected JSONService jsonService;
+
+    protected User getUserByFacebookId(String facebookId) {
+        return userRepository.findByFacebookId(facebookId);
+    }
+
+
 }
