@@ -53,7 +53,7 @@ add or modify profiles (settings.xml)
 
             <server.home>XXX</server.home><!--tomcat home folder-->
             <server.protocol>http</server.protocol><!--tomcat server protocol-->
-            <server.host>localhost:8080</server.host><!--tomcat server host (with portnumber because protocol is http-->
+            <server.host>localhost:8080</server.host><!--tomcat server host (with portnumber because protocol is http)-->
         </properties>
     </profile>
 
@@ -74,7 +74,7 @@ add or modify profiles (settings.xml)
 
             <server.home>XXX</server.home><!--tomcat home folder-->
             <server.protocol>https</server.protocol><!--tomcat server protocol-->
-            <server.host>XXX</server.host><!--tomcat server host (without portnumber because protocol is https-->
+            <server.host>XXX</server.host><!--tomcat server host (without portnumber because protocol is https)-->
         </properties>
     </profile>
 
