@@ -19,7 +19,10 @@ Some features of the api
 * mysql 5 (<http://dev.mysql.com/downloads/mysql>)
 
 ##facebook setup
-* create application (<http://developers.facebook.com/docs/appsonfacebook/tutorial/#create>)
+* create development application (<http://developers.facebook.com/docs/appsonfacebook/tutorial/#create>)
+* create development application access token (<http://developers.facebook.com/docs/authentication/applications>)
+* create production application (<http://developers.facebook.com/docs/appsonfacebook/tutorial/#create>)
+* create production application access token (<http://developers.facebook.com/docs/authentication/applications>)
 
 ##maven setup
 add or modify profiles (settings.xml)
@@ -44,13 +47,13 @@ add or modify profiles (settings.xml)
         </activation>
 
         <properties>
-            <facebook.appId>XXX</facebook.appId><!--facebook application id-->
-            <facebook.appAccessToken>XXX</facebook.appAccessToken><!--facebook application access token (http://developers.facebook.com/docs/authentication/applications)-->
+            <facebook.appId>XXX</facebook.appId><!--development facebook application id-->
+            <facebook.appAccessToken>XXX</facebook.appAccessToken><!--development facebook application access token-->
             <database.server.password>XXX</database.server.password><!--password of server database-->
 
             <server.home>XXX</server.home><!--tomcat home folder-->
             <server.protocol>http</server.protocol><!--tomcat server protocol-->
-            <server.host>localhost:8080</server.host><!--tomcat server host (with portnumber because protocol is http-->
+            <server.host>localhost:8080</server.host><!--tomcat server host (with portnumber because protocol is http)-->
         </properties>
     </profile>
 
@@ -65,13 +68,13 @@ add or modify profiles (settings.xml)
         </activation>
 
         <properties>
-            <facebook.appId>XXX</facebook.appId><!--facebook application id-->
-            <facebook.appAccessToken>XXX</facebook.appAccessToken><!--facebook application access token (http://developers.facebook.com/docs/authentication/applications)-->
+            <facebook.appId>XXX</facebook.appId><!--production facebook application id-->
+            <facebook.appAccessToken>XXX</facebook.appAccessToken><!--production facebook application access token-->
             <database.server.password>XXX</database.server.password><!--password of server database-->
 
             <server.home>XXX</server.home><!--tomcat home folder-->
             <server.protocol>https</server.protocol><!--tomcat server protocol-->
-            <server.host>XXX</server.host><!--tomcat server host (without portnumber because protocol is https-->
+            <server.host>XXX</server.host><!--tomcat server host (without portnumber because protocol is https)-->
         </properties>
     </profile>
 
