@@ -105,7 +105,7 @@ add database connection settings (context.xml)
 ##mysql setup
 run maven commando
 
-    mvn -Denv=dev clean test
+    mvn -Denv=dev clean process-test-resources
 
 execute sql file target/test-classes/dbmaintain.sql as root user in mysql
 
