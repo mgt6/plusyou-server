@@ -19,7 +19,7 @@ Some features of the api
 * mysql 5 (<http://dev.mysql.com/downloads/mysql>)
 
 ##facebook setup
-* create facebook account (<http://www.facebook.com>), don't forget to authenticate your account by adding a credit card in the payment section of your account settings !
+* create facebook account (<http://www.facebook.com>) --> don't forget to authenticate your account by adding a credit card in the payment section of your account settings !
 * create development application (<http://developers.facebook.com/docs/appsonfacebook/tutorial/#create>)
 * create development application access token (<http://developers.facebook.com/docs/authentication/applications>)
 * create production application (<http://developers.facebook.com/docs/appsonfacebook/tutorial/#create>)
