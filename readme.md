@@ -10,8 +10,6 @@ Some features of the api
 * consult achieved awards
 * ...
 
-<img src="https://github.com/youthnet/plusyou-server/blob/master/database-diagram.png?raw=true"/>
-
 ##software installation
 * java 6 (<http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html>)
 * maven 3 (<http://maven.apache.org/download.html>)
